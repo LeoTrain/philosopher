@@ -101,6 +101,7 @@ int create_threads(pthread_t *threads, t_args data_args, t_philosopher *data_phi
 {
 	int i;
 
+	threads = malloc(sizeof(pthread_t) * data_args.number_of_philosophers);
 	if (!threads)
 	{
 		printf("Error allocating for threads.\n");

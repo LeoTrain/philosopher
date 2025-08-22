@@ -9,11 +9,11 @@
       "-pthread",
       "-c",
       "-o",
-      "initialisation.o",
-      "initialisation.c"
+      "main.o",
+      "main.c"
     ],
-    "directory": "/home/leberton/lab/philosophers",
-    "file": "/home/leberton/lab/philosophers/initialisation.c",
-    "output": "/home/leberton/lab/philosophers/initialisation.o"
+    "directory": "/home/ft-leo/lab/philosopher",
+    "file": "/home/ft-leo/lab/philosopher/main.c",
+    "output": "/home/ft-leo/lab/philosopher/main.o"
   }
 ]
