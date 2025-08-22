@@ -70,12 +70,15 @@ static void	check_is_dead(t_philosopher *data, int i)
    // printf("Time to die: %d\n", data[i].args.time_to_die);
    if (get_current_time_in_ms(data[i].start_time) == 0)
      return ;
+   pthread_mutex_lock(&data[i].meal_mutex);
 	if (!data[i].is_eating &&
 		(get_time_in_ms() - (long)data[i].last_meal_time) > data[i].args.time_to_die)
 	{
 		printf("Philosopher %d died.\n", data[i].id);
-		exit(1);
+		// pthread_mutex_unlock(&data[i].meal_mutex);
+		// exit(1);
 	}
+   pthread_mutex_unlock(&data[i].meal_mutex);
 }
 
 static void *death_check(void *philo_data)
