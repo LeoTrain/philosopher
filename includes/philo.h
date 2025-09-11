@@ -21,6 +21,7 @@ typedef struct s_program_args
 	long	time_to_eat;
 	long	time_to_sleep;
 	int		max_meals;
+	long	start_time;
 }			t_program_args;
 
 typedef struct s_philo
@@ -40,8 +41,8 @@ typedef struct s_program
 {
 	t_program_args	args;
 	t_philo			*philosophers;
-	long			start_time;
 	int				completion_counter;
+	pthread_t		*threads;
 	pthread_mutex_t	completion_counter_mutex;
 	pthread_mutex_t	logging_mutex;
 	pthread_mutex_t	*forks_mutex;
@@ -52,14 +53,24 @@ int		ft_atoi(char *str);
 long	ft_atol(char *str);
 int		is_number(char *str);
 long	get_current_time(void);
+long	get_elapsed_time(long start_time);
+int		is_dead(t_philo *philo);
+void	log_fork(t_philo *philo);
+void	log_meal(t_philo *philo);
+void	log_sleep(t_philo *philo);
+void	log_think(t_philo *philo);
+void	log_dead(t_philo *philo);
 void	clean_forks(t_program *program, int i);
 int		initialize_program_args(t_program_args *args);
 int		parse_arguments(int argc, char **argv, t_program *program);
 int		init_mutexes(t_program *program);
+void	add_start_time_to_args(t_program *program);
 int		create_philosophers(t_program *program);
-void	philo_think(long think_time_in_ms);
-void	philo_sleep(long sleep_time_in_ms);
-void	philo_eat(long eat_time_in_ms);
+int		create_and_start_threads(t_program *program);
+void	join_threads(t_program *program);
+void	philo_think(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_eat(t_philo *philo);
 void	*philosophers_routine(void *philo_arg);
 
 #endif
