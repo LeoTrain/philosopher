@@ -1,11 +1,13 @@
 #include "../../includes/philo.h"
 
-void	philo_sleep(long sleep_time_in_ms)
+void	philo_sleep(t_philo *philo)
 {
-	usleep(sleep_time_in_ms);
+	log_sleep(philo);
+	usleep(philo->shared_data->time_to_sleep * 1000);
 }
 
-void	philo_think(long think_time_in_ms)
+void	philo_think(t_philo *philo)
 {
-	usleep(think_time_in_ms);
+	log_think(philo);
+	usleep(philo->shared_data->time_to_die / 10 * 1000);
 }

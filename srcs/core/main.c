@@ -26,7 +26,20 @@ int	main(int argc, char **argv)
 		printf("Error: inititializing mutexes");
 		return (EXIT_FAILURE);
 	}
-	program.start_time = get_current_time();
-	create_philosophers(&program);
+	add_start_time_to_args(&program);
+	printf("Start time: %ld\n", program.args.start_time);
+	if (create_philosophers(&program) != SUCCESS)
+	{
+		printf("Error: creating philosophers\n");
+		return (EXIT_FAILURE);
+	}
+	if (create_and_start_threads(&program) != SUCCESS)
+	{
+		printf("Error: creating and starting threads\n");
+		return (EXIT_FAILURE);
+	}
+	join_threads(&program);
+	clean_forks(&program, program.args.philosopher_amount);
+	free(program.philosophers);
 	return (EXIT_SUCCESS);
 }
