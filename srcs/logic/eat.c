@@ -1,6 +1,7 @@
 #include "../../includes/philo.h"
 
-void	philo_eat(long eat_time_in_ms)
+void	philo_eat(t_philo *philo)
 {
-	usleep(eat_time_in_ms);
+	log_meal(philo);
+	usleep(philo->shared_data->time_to_eat * 1000);
 }

@@ -10,13 +10,22 @@ void	*philosophers_routine(void *philo_arg)
 	philo = (t_philo *)philo_arg;
 	while (1)
 	{
-		philo_think(philo->shared_data->time_to_die);
+		philo_think(philo);
 		lock_mutexes(philo);
-		if (philo->meal_time_last >= philo->shared_data->time_to_die)
+		if (is_dead(philo))
 			return (unlock_mutexes(philo), NULL);
-		philo_eat(philo->shared_data->time_to_eat);
+		philo_eat(philo);
+		philo->meal_time_last = get_current_time();
+		philo->meal_amount_eaten++;
+		if (philo->shared_data->max_meals > 0 && philo->meal_amount_eaten >= philo->shared_data->max_meals)
+		{
+			pthread_mutex_lock(philo->completion_counter_mutex);
+			*(philo->completion_counter) += 1;
+			pthread_mutex_unlock(philo->completion_counter_mutex);
+			return (unlock_mutexes(philo), NULL);
+		}
 		unlock_mutexes(philo);
-		philo_sleep(philo->shared_data->time_to_sleep);
+		philo_sleep(philo);
 	}
 	return (NULL);
 }
