@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-pthread",
+      "-c",
+      "-o",
+      "initialisation.o",
+      "initialisation.c"
+    ],
+    "directory": "/home/ft-leo/lab/philosopher",
+    "file": "/home/ft-leo/lab/philosopher/initialisation.c",
+    "output": "/home/ft-leo/lab/philosopher/initialisation.o"
+  }
+]
