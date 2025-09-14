@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	join_threads(&program);
-	clean_forks(&program, program.args.philosopher_amount);
+	free(program.forks_mutex);
 	free(program.philosophers);
 	return (EXIT_SUCCESS);
 }
