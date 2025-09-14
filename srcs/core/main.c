@@ -1,15 +1,5 @@
 #include "../../includes/philo.h"
 
-static void	print_arguments(t_program_args args)
-{
-	printf("===== ARGUMENTS =====\n");
-	printf("Philo's amount: %d\n", args.philosopher_amount);
-	printf("Time to die:    %ld\n", args.time_to_die);
-	printf("Time to eat:    %ld\n", args.time_to_eat);
-	printf("Time to sleep:  %ld\n", args.time_to_sleep);
-	printf("Max meals:      %d\n", args.max_meals);
-}
-
 int	main(int argc, char **argv)
 {
 	t_program	program;
@@ -20,7 +10,6 @@ int	main(int argc, char **argv)
 		printf("Error: parsing the arguments\n");
 		return (EXIT_FAILURE);
 	}
-	(void)print_arguments;
 	if (init_mutexes(&program) != SUCCESS)
 	{
 		printf("Error: inititializing mutexes");
