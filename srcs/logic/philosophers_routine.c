@@ -13,7 +13,7 @@ void	*philosophers_routine(void *philo_arg)
 	{
 		philo_think(philo);
 		lock_mutexes(philo);
-		if (is_dead(philo))
+		if (is_dead(philo) || someone_died(philo))
 			return (unlock_mutexes(philo), NULL);
 		philo_eat(philo);
 		philo->meal_time_last = get_current_time();
