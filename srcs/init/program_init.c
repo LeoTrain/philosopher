@@ -10,3 +10,14 @@ int	initialize_program_args(t_program_args *args)
 	args->start_time = 0;
 	return (SUCCESS);
 }
+
+void	clean_forks(t_program *program, int i)
+{
+	while (i >= 0)
+	{
+		pthread_mutex_destroy(&program->forks_mutex[i]);
+		i--;
+	}
+	free(program->forks_mutex);
+	program->forks_mutex = NULL;
+}

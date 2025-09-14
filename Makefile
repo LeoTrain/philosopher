@@ -1,11 +1,15 @@
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-S_CORE = srcs/core/main.c srcs/core/cleanup.c
-S_INIT = srcs/init/parse_args.c srcs/init/init_args.c srcs/init/init_mutexes.c srcs/init/init_philosophers.c
-S_LOGIC = srcs/logic/philosophers_routine.c srcs/logic/eat.c srcs/logic/sleep_think.c srcs/logic/death_check.c
-S_UTILS = srcs/utils/time_utils.c srcs/utils/string_utils.c srcs/utils/logging.c srcs/utils/philo_utils.c
-SRCS = $(S_CORE) $(S_INIT) $(S_LOGIC) $(S_UTILS)
+S_CORE = srcs/core/program_main.c
+S_INIT = srcs/init/program_init.c srcs/init/mutex_init.c srcs/init/philo_setup.c
+S_PARSE = srcs/parse/arg_parsing.c srcs/parse/arg_validation.c
+S_ROUTINE = srcs/routine/main_routine.c srcs/routine/single_philo.c srcs/routine/fork_management.c srcs/routine/fork_unlock.c srcs/routine/meal_check.c
+S_THREAD = srcs/thread/thread_create.c srcs/thread/thread_cleanup.c
+S_ACTIONS = srcs/actions/philo_actions.c
+S_OUTPUT = srcs/output/log_actions.c srcs/output/log_status.c
+S_UTILS = srcs/utils/time_helpers.c srcs/utils/death_check.c srcs/utils/string_helpers.c srcs/utils/string_convert.c srcs/utils/string_long.c
+SRCS = $(S_CORE) $(S_INIT) $(S_PARSE) $(S_ROUTINE) $(S_THREAD) $(S_ACTIONS) $(S_OUTPUT) $(S_UTILS)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
