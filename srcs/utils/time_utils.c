@@ -25,3 +25,13 @@ int	is_dead(t_philo *philo)
 	}
 	return (0);
 }
+
+int	someone_died(t_philo *philo)
+{
+	int	died;
+
+	pthread_mutex_lock(philo->someone_died_mutex);
+	died = philo->shared_data->someone_died;
+	pthread_mutex_unlock(philo->someone_died_mutex);
+	return (died);
+}

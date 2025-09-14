@@ -4,8 +4,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <pthread.h>
 # include <sys/time.h>
+# include <pthread.h>
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -22,6 +22,7 @@ typedef struct s_program_args
 	long	time_to_sleep;
 	int		max_meals;
 	long	start_time;
+	int		someone_died;
 }			t_program_args;
 
 typedef struct s_philo
@@ -35,6 +36,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_right_mutex;
 	pthread_mutex_t	*logging_mutex;
 	pthread_mutex_t	*completion_counter_mutex;
+	pthread_mutex_t	*someone_died_mutex;
 }					t_philo;
 
 typedef struct s_program
@@ -42,10 +44,12 @@ typedef struct s_program
 	t_program_args	args;
 	t_philo			*philosophers;
 	int				completion_counter;
+	int				someone_died;
 	pthread_t		*threads;
 	pthread_mutex_t	completion_counter_mutex;
 	pthread_mutex_t	logging_mutex;
 	pthread_mutex_t	*forks_mutex;
+	pthread_mutex_t	someone_died_mutex;
 
 }					t_program;
 
@@ -55,6 +59,7 @@ int		is_number(char *str);
 long	get_current_time(void);
 long	get_elapsed_time(long start_time);
 int		is_dead(t_philo *philo);
+int		someone_died(t_philo *philo);
 void	log_fork(t_philo *philo);
 void	log_meal(t_philo *philo);
 void	log_sleep(t_philo *philo);
