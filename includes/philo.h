@@ -75,6 +75,7 @@ void	log_dead(t_philo *philo);
 void	clean_forks(t_program *program, int i);
 int		initialize_program_args(t_program_args *args);
 int		parse_arguments(int argc, char **argv, t_program *program);
+int		check_args(t_program_args args);
 int		init_mutexes(t_program *program);
 void	add_start_time_to_args(t_program *program);
 int		create_philosophers(t_program *program);
@@ -83,6 +84,10 @@ void	join_threads(t_program *program);
 void	philo_think(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_eat(t_philo *philo);
-void	*philosophers_routine(void *philo_arg);
+void	*philosophers_routine(void *arg);
+void	*handle_single_philosopher(t_thread_data *thread_data);
+void	lock_mutexes(t_philo *philo);
+void	unlock_mutexes(t_philo *philo);
+int		check_meal_completion(t_thread_data *thread_data);
 
 #endif
