@@ -3,18 +3,15 @@
 
 int	create_philosophers(t_program *program)
 {
-	printf("Creating philosophers...\n");
 	int	i;
 	int	left_fork_id;
 
 	program->philosophers = malloc(sizeof(t_philo) * program->args.philosopher_amount);
 	if (program->philosophers == NULL)
 		return (ERROR_MALLOC);
-	printf("Allocated memory for %d philosophers\n", program->args.philosopher_amount);
 	i = 0;
 	while (i < program->args.philosopher_amount)
 	{
-		printf("Creating philosopher %d\n", i + 1);
 		program->philosophers[i].id = i + 1;
 		program->philosophers[i].meal_time_last = program->args.start_time;
 		program->philosophers[i].meal_amount_eaten = 0;
