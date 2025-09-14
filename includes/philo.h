@@ -22,7 +22,6 @@ typedef struct s_program_args
 	long	time_to_sleep;
 	int		max_meals;
 	long	start_time;
-	int		someone_died;
 }			t_program_args;
 
 typedef struct s_philo
@@ -39,27 +38,35 @@ typedef struct s_philo
 	pthread_mutex_t	*someone_died_mutex;
 }					t_philo;
 
+
 typedef struct s_program
 {
-	t_program_args	args;
-	t_philo			*philosophers;
-	int				completion_counter;
-	int				someone_died;
-	pthread_t		*threads;
-	pthread_mutex_t	completion_counter_mutex;
-	pthread_mutex_t	logging_mutex;
-	pthread_mutex_t	*forks_mutex;
-	pthread_mutex_t	someone_died_mutex;
+	t_program_args			args;
+	t_philo					*philosophers;
+	int						completion_counter;
+	int						someone_died;
+	pthread_t				*threads;
+	pthread_mutex_t			completion_counter_mutex;
+	pthread_mutex_t			logging_mutex;
+	pthread_mutex_t			*forks_mutex;
+	pthread_mutex_t			someone_died_mutex;
+	struct s_thread_data	*thread_data;
+}							t_program;
 
-}					t_program;
+typedef struct s_thread_data
+{
+	t_philo		*philo;
+	t_program	*program;
+}				t_thread_data;
+
 
 int		ft_atoi(char *str);
 long	ft_atol(char *str);
 int		is_number(char *str);
 long	get_current_time(void);
 long	get_elapsed_time(long start_time);
-int		is_dead(t_philo *philo);
-int		someone_died(t_philo *philo);
+int		is_dead(t_thread_data *thread_data);
+int		someone_died(t_thread_data *thread_data);
 void	log_fork(t_philo *philo);
 void	log_meal(t_philo *philo);
 void	log_sleep(t_philo *philo);

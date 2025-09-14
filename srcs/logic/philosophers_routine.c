@@ -1,42 +1,47 @@
 #include "../../includes/philo.h"
-#include <bits/pthreadtypes.h>
 
 static void	lock_mutexes(t_philo *philo);
 static void	unlock_mutexes(t_philo *philo);
 
-void	*philosophers_routine(void *philo_arg)
+void	*philosophers_routine(void *arg)
 {
-	t_philo	*philo;
+	t_thread_data	*thread_data;
 
-	philo = (t_philo *)philo_arg;
+	thread_data = (t_thread_data *)arg;
 	while (1)
 	{
-		if (someone_died(philo) == 1)
+		if (someone_died(thread_data) == 1)
 			return (NULL);
-		philo_think(philo);
-		if (someone_died(philo) == 1)
+		philo_think(thread_data->philo);
+		if (someone_died(thread_data) == 1)
 			return (NULL);
-		lock_mutexes(philo);
-		if (is_dead(philo) == 1)
-			return (unlock_mutexes(philo), NULL);
-		if (someone_died(philo) == 1)
-			return (unlock_mutexes(philo), NULL);
-		philo_eat(philo);
-		philo->meal_time_last = get_current_time();
-		philo->meal_amount_eaten++;
-		if (someone_died(philo) == 1)
-			return (unlock_mutexes(philo), NULL);
-		if (philo->shared_data->max_meals > 0 && philo->meal_amount_eaten >= philo->shared_data->max_meals)
+		lock_mutexes(thread_data->philo);
+		if (is_dead(thread_data) == 1)
+			return (unlock_mutexes(thread_data->philo), NULL);
+		if (someone_died(thread_data) == 1)
+			return (unlock_mutexes(thread_data->philo), NULL);
+		philo_eat(thread_data->philo);
+		thread_data->philo->meal_time_last = get_current_time();
+		thread_data->philo->meal_amount_eaten++;
+		if (someone_died(thread_data) == 1)
+			return (unlock_mutexes(thread_data->philo), NULL);
+		if (thread_data->philo->shared_data->max_meals > 0 && thread_data->philo->meal_amount_eaten >= thread_data->philo->shared_data->max_meals)
 		{
-			pthread_mutex_lock(philo->completion_counter_mutex);
-			*(philo->completion_counter) += 1;
-			pthread_mutex_unlock(philo->completion_counter_mutex);
-			return (unlock_mutexes(philo), NULL);
+			pthread_mutex_lock(thread_data->philo->completion_counter_mutex);
+			*(thread_data->philo->completion_counter) += 1;
+			if (*(thread_data->philo->completion_counter) >= thread_data->philo->shared_data->philosopher_amount)
+			{
+				pthread_mutex_lock(thread_data->philo->someone_died_mutex);
+				thread_data->program->someone_died = 1;
+				pthread_mutex_unlock(thread_data->philo->someone_died_mutex);
+			}
+			pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
+			return (unlock_mutexes(thread_data->philo), NULL);
 		}
-		unlock_mutexes(philo);
-		if (someone_died(philo) == 1)
+		unlock_mutexes(thread_data->philo);
+		if (someone_died(thread_data) == 1)
 			return (NULL);
-		philo_sleep(philo);
+		philo_sleep(thread_data->philo);
 	}
 	return (NULL);
 }
