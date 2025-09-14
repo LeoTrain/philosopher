@@ -20,6 +20,11 @@ int	init_mutexes(t_program *program)
 			return (clean_forks(program, program->args.philosopher_amount),
 					pthread_mutex_destroy(&program->completion_counter_mutex),
 					ERROR_MUTEX);
+	if (pthread_mutex_init(&program->someone_died_mutex, NULL) != 0)
+			return (clean_forks(program, program->args.philosopher_amount),
+					pthread_mutex_destroy(&program->completion_counter_mutex),
+					pthread_mutex_destroy(&program->logging_mutex),
+					ERROR_MUTEX);
 	return (SUCCESS);
 }
 
