@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	add_start_time_to_args(&program);
-	printf("Start time: %ld\n", program.args.start_time);
 	if (create_philosophers(&program) != SUCCESS)
 	{
 		printf("Error: creating philosophers\n");
