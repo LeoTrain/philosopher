@@ -4,7 +4,8 @@ int	init_mutexes(t_program *program)
 {
 	int	i;
 
-	program->forks_mutex = malloc(sizeof(pthread_mutex_t) * program->args.philosopher_amount);
+	program->forks_mutex = malloc(sizeof(pthread_mutex_t) * \
+						program->args.philosopher_amount);
 	if (program->forks_mutex == NULL)
 		return (ERROR_MALLOC);
 	i = 0;
@@ -15,7 +16,8 @@ int	init_mutexes(t_program *program)
 		i++;
 	}
 	if (pthread_mutex_init(&program->completion_counter_mutex, NULL) != 0)
-			return (clean_forks(program, program->args.philosopher_amount), ERROR_MUTEX);
+			return (clean_forks(program, program->args.philosopher_amount),
+					ERROR_MUTEX);
 	if (pthread_mutex_init(&program->logging_mutex, NULL) != 0)
 			return (clean_forks(program, program->args.philosopher_amount),
 					pthread_mutex_destroy(&program->completion_counter_mutex),
