@@ -20,6 +20,9 @@ int	is_dead(t_philo *philo)
 	current_time = get_current_time();
 	if (current_time - philo->meal_time_last > philo->shared_data->time_to_die)
 	{
+		pthread_mutex_lock(philo->someone_died_mutex);
+		philo->shared_data->someone_died = 1;
+		pthread_mutex_unlock(philo->someone_died_mutex);
 		log_dead(philo);
 		return (1);
 	}
