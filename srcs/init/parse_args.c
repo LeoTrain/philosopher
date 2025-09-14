@@ -37,7 +37,7 @@ int	parse_arguments(int argc, char **argv, t_program *program)
 
 static int	check_args(t_program_args args)
 {
-	if (args.philosopher_amount < 3)
+	if (args.philosopher_amount < 1)
 		return (ERROR_ARGS);
 	if (args.time_to_die <= 0 || args.time_to_eat <= 0
 		|| args.time_to_sleep <= 0 || args.max_meals < -1)
