@@ -8,6 +8,16 @@ void	*philosophers_routine(void *arg)
 	t_thread_data	*thread_data;
 
 	thread_data = (t_thread_data *)arg;
+	if (thread_data->philo->shared_data->philosopher_amount == 1)
+	{
+		philo_think(thread_data->philo);
+		usleep(thread_data->philo->shared_data->time_to_die * 1000 + 1000);
+		pthread_mutex_lock(thread_data->philo->someone_died_mutex);
+		thread_data->program->someone_died = 1;
+		pthread_mutex_unlock(thread_data->philo->someone_died_mutex);
+		log_dead(thread_data->philo);
+		return (NULL);
+	}
 	while (1)
 	{
 		if (someone_died(thread_data) == 1)
