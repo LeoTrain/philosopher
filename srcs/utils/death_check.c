@@ -9,6 +9,11 @@ int	is_dead(t_thread_data *thread_data)
 		> thread_data->philo->shared_data->time_to_die)
 	{
 		pthread_mutex_lock(thread_data->philo->someone_died_mutex);
+		if (thread_data->program->someone_died == 1)
+		{
+			pthread_mutex_unlock(thread_data->philo->someone_died_mutex);
+			return (1);
+		}
 		thread_data->program->someone_died = 1;
 		pthread_mutex_unlock(thread_data->philo->someone_died_mutex);
 		log_dead(thread_data->philo);

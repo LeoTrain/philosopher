@@ -5,6 +5,7 @@ int	main(int argc, char **argv)
 	t_program	program;
 
 	program.completion_counter = 0;
+	program.someone_died = 0;
 	if (parse_arguments(argc, argv, &program) != SUCCESS)
 	{
 		printf("Error: parsing the arguments\n");
