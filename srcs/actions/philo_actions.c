@@ -1,19 +1,20 @@
 #include "../../includes/philo.h"
 
-void	philo_eat(t_philo *philo)
+int	philo_eat(t_thread_data *thread_data)
 {
-	log_meal(philo);
-	usleep(philo->shared_data->time_to_eat * 1000);
+	log_meal(thread_data->philo);
+	return (ft_usleep(thread_data->philo->shared_data->time_to_eat,
+			thread_data));
 }
 
-void	philo_sleep(t_philo *philo)
+int	philo_sleep(t_thread_data *thread_data)
 {
-	log_sleep(philo);
-	usleep(philo->shared_data->time_to_sleep * 1000);
+	log_sleep(thread_data->philo);
+	return (ft_usleep(thread_data->philo->shared_data->time_to_sleep,
+			thread_data));
 }
 
-void	philo_think(t_philo *philo)
+void	philo_think(t_thread_data *thread_data)
 {
-	log_think(philo);
-	usleep(philo->shared_data->time_to_die / 10 * 1000);
+	log_think(thread_data->philo);
 }

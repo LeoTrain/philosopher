@@ -22,6 +22,7 @@ static void	setup_philosopher_mutexes(t_program *program, int i)
 	program->philosophers[i].completion_counter = &program->completion_counter;
 	program->philosophers[i].logging_mutex = &program->logging_mutex;
 	program->philosophers[i].someone_died_mutex = &program->someone_died_mutex;
+	program->philosophers[i].someone_died = &program->someone_died;
 }
 
 int	create_philosophers(t_program *program)

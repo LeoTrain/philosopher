@@ -12,3 +12,17 @@ long	get_elapsed_time(long start_time)
 {
 	return (get_current_time() - start_time);
 }
+
+int	ft_usleep(long duration_ms, t_thread_data *thread_data)
+{
+	long	start;
+
+	start = get_current_time();
+	while (get_current_time() - start < duration_ms)
+	{
+		if (someone_died(thread_data))
+			return (1);
+		usleep(500);
+	}
+	return (0);
+}

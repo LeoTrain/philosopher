@@ -9,11 +9,10 @@ static int	process_eating_cycle(t_thread_data *thread_data)
 		return (unlock_mutexes(thread_data->philo), 1);
 	if (someone_died(thread_data) == 1)
 		return (unlock_mutexes(thread_data->philo), 1);
-	philo_eat(thread_data->philo);
 	thread_data->philo->meal_time_last = get_current_time();
-	thread_data->philo->meal_amount_eaten++;
-	if (someone_died(thread_data) == 1)
+	if (philo_eat(thread_data))
 		return (unlock_mutexes(thread_data->philo), 1);
+	thread_data->philo->meal_amount_eaten++;
 	if (check_meal_completion(thread_data))
 		return (unlock_mutexes(thread_data->philo), 1);
 	unlock_mutexes(thread_data->philo);
@@ -31,12 +30,11 @@ void	*philosophers_routine(void *arg)
 	{
 		if (someone_died(thread_data) == 1)
 			return (NULL);
-		philo_think(thread_data->philo);
+		philo_think(thread_data);
 		if (process_eating_cycle(thread_data))
 			return (NULL);
-		if (someone_died(thread_data) == 1)
+		if (philo_sleep(thread_data))
 			return (NULL);
-		philo_sleep(thread_data->philo);
 	}
 	return (NULL);
 }

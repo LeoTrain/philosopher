@@ -10,7 +10,7 @@ static void	handle_single_death(t_thread_data *thread_data)
 
 void	*handle_single_philosopher(t_thread_data *thread_data)
 {
-	philo_think(thread_data->philo);
+	philo_think(thread_data);
 	usleep(thread_data->philo->shared_data->time_to_die * 1000 + 1000);
 	handle_single_death(thread_data);
 	return (NULL);
