@@ -14,7 +14,8 @@ S_ROUTINE = srcs/routine/main_routine.c \
 			srcs/routine/fork_unlock.c \
 			srcs/routine/meal_check.c
 S_THREAD = 	srcs/thread/thread_create.c \
-		   	srcs/thread/thread_cleanup.c
+		   	srcs/thread/thread_cleanup.c \
+		   	srcs/thread/death_monitor.c
 S_ACTIONS = srcs/actions/philo_actions.c
 S_OUTPUT = 	srcs/output/log_actions.c \
 		   	srcs/output/log_status.c
@@ -24,22 +25,31 @@ S_UTILS =	srcs/utils/time_helpers.c \
 		  	srcs/utils/string_convert.c \
 		  	srcs/utils/string_long.c
 
+RED =		"\e[31m"
+BLUE =		"\e[34m"
+YELLOW =	"\e[33m"
+RESET = 	"\e[0m"
+
 SRCS = $(S_CORE) $(S_INIT) $(S_PARSE) $(S_ROUTINE) $(S_THREAD) $(S_ACTIONS) $(S_OUTPUT) $(S_UTILS)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	@echo $(BLUE)"Compiling objects into executable"$(RESET)
+	@$(CC) $(OBJS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	@echo $(YELLOW)"Compiling $^ into a object file"$(RESET)
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f $(OBJS)
+	@echo $(RED)"Cleaning object files"$(RESET)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo $(RED)"Cleaning executable"$(RESET)
+	@rm -f $(NAME)
 
 re: fclean all
 

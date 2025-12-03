@@ -37,8 +37,8 @@ typedef struct s_philo
 	pthread_mutex_t	*logging_mutex;
 	pthread_mutex_t	*completion_counter_mutex;
 	pthread_mutex_t	*someone_died_mutex;
+	pthread_mutex_t	*meal_time_mutex;
 }					t_philo;
-
 
 typedef struct s_program
 {
@@ -47,10 +47,12 @@ typedef struct s_program
 	int						completion_counter;
 	int						someone_died;
 	pthread_t				*threads;
+	pthread_t				*monitor_thread;
 	pthread_mutex_t			completion_counter_mutex;
 	pthread_mutex_t			logging_mutex;
 	pthread_mutex_t			*forks_mutex;
 	pthread_mutex_t			someone_died_mutex;
+	pthread_mutex_t			*meal_time_mutexes;
 	struct s_thread_data	*thread_data;
 }							t_program;
 
@@ -66,7 +68,6 @@ long	ft_atol(char *str);
 int		is_number(char *str);
 long	get_current_time(void);
 long	get_elapsed_time(long start_time);
-int		is_dead(t_thread_data *thread_data);
 int		someone_died(t_thread_data *thread_data);
 void	log_fork(t_philo *philo);
 void	log_meal(t_philo *philo);
@@ -91,5 +92,7 @@ void	*handle_single_philosopher(t_thread_data *thread_data);
 void	lock_mutexes(t_philo *philo);
 void	unlock_mutexes(t_philo *philo);
 int		check_meal_completion(t_thread_data *thread_data);
+void	*death_monitor(void *arg);
+void	cleanup_meal_mutexes(t_program *program);
 
 #endif
