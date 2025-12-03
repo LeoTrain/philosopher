@@ -28,6 +28,10 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	join_threads(&program);
+	cleanup_meal_mutexes(&program);
+	pthread_mutex_destroy(&program.completion_counter_mutex);
+	pthread_mutex_destroy(&program.logging_mutex);
+	pthread_mutex_destroy(&program.someone_died_mutex);
 	free(program.forks_mutex);
 	free(program.philosophers);
 	return (EXIT_SUCCESS);

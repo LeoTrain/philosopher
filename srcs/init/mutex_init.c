@@ -18,6 +18,29 @@ static int	init_fork_mutexes(t_program *program)
 	return (SUCCESS);
 }
 
+static int	init_meal_time_mutexes(t_program *program)
+{
+	int	i;
+
+	program->meal_time_mutexes = malloc(sizeof(pthread_mutex_t)
+						* program->args.philosopher_amount);
+	if (program->meal_time_mutexes == NULL)
+		return (ERROR_MALLOC);
+	i = 0;
+	while (i < program->args.philosopher_amount)
+	{
+		if (pthread_mutex_init(&program->meal_time_mutexes[i], NULL) != 0)
+		{
+			while (--i > 0)
+				pthread_mutex_destroy(&program->meal_time_mutexes[i]);
+			free(program->meal_time_mutexes);
+			return (ERROR_MUTEX);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
 static int	init_control_mutexes(t_program *program)
 {
 	if (pthread_mutex_init(&program->completion_counter_mutex, NULL) != 0)
@@ -39,7 +62,16 @@ int	init_mutexes(t_program *program)
 {
 	if (init_fork_mutexes(program) != SUCCESS)
 		return (ERROR_MUTEX);
-	if (init_control_mutexes(program) != SUCCESS)
+	if (init_meal_time_mutexes(program) != SUCCESS)
+	{
+		clean_forks(program, program->args.philosopher_amount - 1);
 		return (ERROR_MUTEX);
+	}
+	if (init_control_mutexes(program) != SUCCESS)
+	{
+		clean_forks(program, program->args.philosopher_amount - 1);
+		cleanup_meal_mutexes(program);
+		return (ERROR_MUTEX);
+	}
 	return (SUCCESS);
 }
