@@ -25,10 +25,10 @@ S_UTILS =	srcs/utils/time_helpers.c \
 		  	srcs/utils/string_convert.c \
 		  	srcs/utils/string_long.c
 
-RED =		"\e[31m"
-BLUE =		"\e[34m"
-YELLOW =	"\e[33m"
-RESET = 	"\e[0m"
+RED =		"\033[31m"
+BLUE =		"\033[34m"
+YELLOW =	"\033[33m"
+RESET = 	"\033[0m"
 
 SRCS = $(S_CORE) $(S_INIT) $(S_PARSE) $(S_ROUTINE) $(S_THREAD) $(S_ACTIONS) $(S_OUTPUT) $(S_UTILS)
 OBJS = $(SRCS:.c=.o)
