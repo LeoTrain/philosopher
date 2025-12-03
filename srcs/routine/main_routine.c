@@ -5,11 +5,11 @@ static int	process_eating_cycle(t_thread_data *thread_data)
 	if (someone_died(thread_data) == 1)
 		return (1);
 	lock_mutexes(thread_data->philo);
-	if (is_dead(thread_data) == 1)
-		return (unlock_mutexes(thread_data->philo), 1);
 	if (someone_died(thread_data) == 1)
 		return (unlock_mutexes(thread_data->philo), 1);
+	pthread_mutex_lock(thread_data->philo->meal_time_mutex);
 	thread_data->philo->meal_time_last = get_current_time();
+	pthread_mutex_unlock(thread_data->philo->meal_time_mutex);
 	if (philo_eat(thread_data))
 		return (unlock_mutexes(thread_data->philo), 1);
 	thread_data->philo->meal_amount_eaten++;

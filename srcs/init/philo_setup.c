@@ -23,6 +23,7 @@ static void	setup_philosopher_mutexes(t_program *program, int i)
 	program->philosophers[i].logging_mutex = &program->logging_mutex;
 	program->philosophers[i].someone_died_mutex = &program->someone_died_mutex;
 	program->philosophers[i].someone_died = &program->someone_died;
+	program->philosophers[i].meal_time_mutex = &program->meal_time_mutexes[i];
 }
 
 int	create_philosophers(t_program *program)

@@ -21,3 +21,17 @@ void	clean_forks(t_program *program, int i)
 	free(program->forks_mutex);
 	program->forks_mutex = NULL;
 }
+
+void	cleanup_meal_mutexes(t_program *program)
+{
+	int	i;
+
+	i = program->args.philosopher_amount - 1;
+	while (i >= 0)
+	{
+		pthread_mutex_destroy(&program->meal_time_mutexes[i]);
+		i--;
+	}
+	free(program->meal_time_mutexes);
+	program->meal_time_mutexes = NULL;
+}
