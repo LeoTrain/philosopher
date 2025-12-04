@@ -36,7 +36,7 @@ int	ft_usleep(long duration_ms, t_thread_data *thread_data)
 	{
 		if (is_simulation_over(thread_data))
 			return (1);
-		usleep(500);
+		usleep(100);
 	}
 	return (0);
 }
