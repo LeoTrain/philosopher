@@ -26,6 +26,6 @@ void	philo_think(t_thread_data *thread_data)
 		if (think_time < 0)
 			think_time = 0;
 		if (think_time > 0)
-			ft_usleep(think_time, thread_data);
+			ft_usleep(think_time / 2, thread_data);
 	}
 }
