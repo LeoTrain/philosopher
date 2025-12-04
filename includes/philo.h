@@ -46,6 +46,7 @@ typedef struct s_program
 	t_program_args			args;
 	t_philo					*philosophers;
 	int						completion_counter;
+	int						completion_counter_full;
 	int						someone_died;
 	pthread_t				*threads;
 	pthread_t				monitor_thread;
