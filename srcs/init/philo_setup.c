@@ -7,6 +7,7 @@ static void	setup_philosopher_data(t_program *program, int i)
 	program->philosophers[i].id = i + 1;
 	program->philosophers[i].meal_time_last = program->args.start_time;
 	program->philosophers[i].meal_amount_eaten = 0;
+	program->philosophers[i].is_eating = 0;
 	left_fork_id = (i + program->args.philosopher_amount - 1)
 		% program->args.philosopher_amount;
 	program->philosophers[i].fork_left_mutex

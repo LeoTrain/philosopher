@@ -15,7 +15,7 @@ void	join_threads(t_program *program)
 		pthread_join(program->threads[i], NULL);
 		i++;
 	}
-	pthread_join(*program->monitor_thread, NULL);
+	pthread_join(program->monitor_thread, NULL);
 	free(program->threads);
 	program->threads = NULL;
 	free(program->thread_data);

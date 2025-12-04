@@ -11,9 +11,6 @@ static int	allocate_thread_memory(t_program *program,
 			* program->args.philosopher_amount);
 	if (*thread_data == NULL)
 		return (free(program->threads), ERROR_MALLOC);
-	program->monitor_thread = malloc(sizeof(pthread_t));
-	if (program->monitor_thread == NULL)
-		return (free(program->thread_data), free(program->threads), ERROR_MALLOC);
 	return (SUCCESS);
 }
 
@@ -31,7 +28,7 @@ int	create_and_start_threads(t_program *program)
 
 	if (allocate_thread_memory(program, &thread_data) != SUCCESS)
 		return (ERROR_MALLOC);
-	if (pthread_create(program->monitor_thread, NULL, &death_monitor,
+	if (pthread_create(&program->monitor_thread, NULL, &death_monitor,
 					program) != 0)
 	{
 		free(thread_data);
