@@ -29,6 +29,7 @@ typedef struct s_philo
 	int				id;
 	long			meal_time_last;
 	int				meal_amount_eaten;
+	int				is_eating;
 	int				*completion_counter;
 	int				*someone_died;
 	t_program_args	*shared_data;
@@ -47,7 +48,7 @@ typedef struct s_program
 	int						completion_counter;
 	int						someone_died;
 	pthread_t				*threads;
-	pthread_t				*monitor_thread;
+	pthread_t				monitor_thread;
 	pthread_mutex_t			completion_counter_mutex;
 	pthread_mutex_t			logging_mutex;
 	pthread_mutex_t			*forks_mutex;

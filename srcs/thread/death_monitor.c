@@ -4,10 +4,14 @@ static int	check_philosopher_death(t_philo *philo, t_program *program)
 {
 	long	current_time;
 	long	last_meal;
+	int		eating;
 
 	pthread_mutex_lock(philo->meal_time_mutex);
 	last_meal = philo->meal_time_last;
+	eating = philo->is_eating;
 	pthread_mutex_unlock(philo->meal_time_mutex);
+	if (eating)
+		return (0);
 	current_time = get_current_time();
 	if (current_time - last_meal > philo->shared_data->time_to_die)
 	{
