@@ -28,24 +28,21 @@ int	create_and_start_threads(t_program *program)
 
 	if (allocate_thread_memory(program, &thread_data) != SUCCESS)
 		return (ERROR_MALLOC);
-	if (pthread_create(&program->monitor_thread, NULL, &death_monitor,
-					program) != 0)
-	{
-		free(thread_data);
-		return (ERROR_THREAD);
-	}
 	i = 0;
 	while (i < program->args.philosopher_amount)
 	{
 		setup_thread_data(program, thread_data, i);
 		if (pthread_create(&program->threads[i], NULL, &philosophers_routine,
 				&thread_data[i]) != 0)
-		{
-			free(thread_data);
-			clean_forks(program, i);
-			return (ERROR_THREAD);
-		}
+			return (free(thread_data), clean_forks(program, i), ERROR_THREAD);
 		i++;
+	}
+	if (pthread_create(&program->monitor_thread, NULL, &death_monitor,
+					program) != 0)
+	{
+		free(thread_data);
+		clean_forks(program, i - 1);
+		return (ERROR_THREAD);
 	}
 	program->thread_data = thread_data;
 	return (SUCCESS);

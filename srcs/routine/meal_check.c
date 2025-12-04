@@ -2,7 +2,9 @@
 
 static void	set_completion_flag(t_thread_data *thread_data)
 {
+	pthread_mutex_lock(thread_data->philo->completion_counter_mutex);
 	thread_data->program->completion_counter_full = 1;
+	pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
 }
 
 int	check_meal_completion(t_thread_data *thread_data)
@@ -15,10 +17,15 @@ int	check_meal_completion(t_thread_data *thread_data)
 		< thread_data->philo->shared_data->max_meals)
 		return (0);
 	pthread_mutex_lock(thread_data->philo->completion_counter_mutex);
+	if (thread_data->program->completion_counter_full)
+	{
+		pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
+		return (1);
+	}
 	*(thread_data->philo->completion_counter) += 1;
+	pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
 	if (*(thread_data->philo->completion_counter)
 		>= thread_data->philo->shared_data->philosopher_amount)
 		set_completion_flag(thread_data);
-	pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
 	return (1);
 }

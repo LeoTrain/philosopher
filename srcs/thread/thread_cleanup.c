@@ -2,7 +2,7 @@
 
 void	add_start_time_to_args(t_program *program)
 {
-	program->args.start_time = get_current_time();
+	program->args.start_time = get_current_time() + (program->args.philosopher_amount * 2);
 }
 
 void	join_threads(t_program *program)
