@@ -31,7 +31,7 @@ static int	init_meal_time_mutexes(t_program *program)
 	{
 		if (pthread_mutex_init(&program->meal_time_mutexes[i], NULL) != 0)
 		{
-			while (--i > 0)
+			while (--i >= 0)
 				pthread_mutex_destroy(&program->meal_time_mutexes[i]);
 			free(program->meal_time_mutexes);
 			return (ERROR_MUTEX);
