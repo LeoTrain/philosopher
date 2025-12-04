@@ -29,7 +29,6 @@ typedef struct s_philo
 	int				id;
 	long			meal_time_last;
 	int				meal_amount_eaten;
-	int				is_eating;
 	int				*completion_counter;
 	int				*someone_died;
 	t_program_args	*shared_data;

@@ -1,23 +1,30 @@
 #include "../../includes/philo.h"
 
-int	main(int argc, char **argv)
+static int	parse_and_init(int argc, char **argv, t_program *program)
 {
-	t_program	program;
-
-	program.completion_counter = 0;
-	program.completion_counter_full = 0;
-	program.someone_died = 0;
-	if (parse_arguments(argc, argv, &program) != SUCCESS)
+	program->completion_counter = 0;
+	program->completion_counter_full = 0;
+	program->someone_died = 0;
+	if (parse_arguments(argc, argv, program) != SUCCESS)
 	{
 		printf("Error: parsing the arguments\n");
 		return (EXIT_FAILURE);
 	}
-	if (init_mutexes(&program) != SUCCESS)
+	if (init_mutexes(program) != SUCCESS)
 	{
 		printf("Error: inititializing mutexes");
 		return (EXIT_FAILURE);
 	}
-	add_start_time_to_args(&program);
+	add_start_time_to_args(program);
+	return (SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	t_program	program;
+
+	if (parse_and_init(argc, argv, &program) != SUCCESS)
+		return (EXIT_FAILURE);
 	if (create_philosophers(&program) != SUCCESS)
 	{
 		printf("Error: creating philosophers\n");
