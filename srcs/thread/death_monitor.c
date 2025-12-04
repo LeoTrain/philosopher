@@ -12,6 +12,7 @@ static int	check_philosopher_death(t_philo *philo, t_program *program)
 		pthread_mutex_unlock(&program->completion_counter_mutex);
 		return (1);
 	}
+	pthread_mutex_unlock(&program->completion_counter_mutex);
 
 	pthread_mutex_lock(philo->meal_time_mutex);
 	last_meal = philo->meal_time_last;
