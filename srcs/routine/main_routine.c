@@ -22,7 +22,9 @@ static int	process_eating_cycle(t_thread_data *thread_data)
 	pthread_mutex_unlock(thread_data->philo->meal_time_mutex);
 	if (philo_eat(thread_data))
 		return (unlock_mutexes(thread_data->philo), 1);
+	pthread_mutex_lock(thread_data->philo->meal_time_mutex);
 	thread_data->philo->meal_amount_eaten++;
+	pthread_mutex_unlock(thread_data->philo->meal_time_mutex);
 	if (check_meal_completion(thread_data))
 		return (unlock_mutexes(thread_data->philo), 1);
 	unlock_mutexes(thread_data->philo);
