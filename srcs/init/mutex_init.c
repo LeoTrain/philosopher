@@ -44,14 +44,14 @@ static int	init_meal_time_mutexes(t_program *program)
 static int	init_control_mutexes(t_program *program)
 {
 	if (pthread_mutex_init(&program->completion_counter_mutex, NULL) != 0)
-		return (clean_forks(program, program->args.philosopher_amount),
+		return (clean_forks(program, program->args.philosopher_amount - 1),
 			ERROR_MUTEX);
 	if (pthread_mutex_init(&program->logging_mutex, NULL) != 0)
-		return (clean_forks(program, program->args.philosopher_amount),
+		return (clean_forks(program, program->args.philosopher_amount - 1),
 			pthread_mutex_destroy(&program->completion_counter_mutex),
 			ERROR_MUTEX);
 	if (pthread_mutex_init(&program->someone_died_mutex, NULL) != 0)
-		return (clean_forks(program, program->args.philosopher_amount),
+		return (clean_forks(program, program->args.philosopher_amount - 1),
 			pthread_mutex_destroy(&program->completion_counter_mutex),
 			pthread_mutex_destroy(&program->logging_mutex),
 			ERROR_MUTEX);
