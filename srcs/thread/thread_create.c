@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   thread_create.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 13:53:23 by leberton          #+#    #+#             */
+/*   Updated: 2025/12/05 13:53:26 by leberton         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philo.h"
 
 static int	allocate_thread_memory(t_program *program,
@@ -37,6 +49,15 @@ static void	cleanup_threads(t_program *program, int count)
 	}
 }
 
+static void	clean_it(t_program *program, t_thread_data *thread_data, int count)
+{
+	cleanup_threads(program, count);
+	free(program->threads);
+	free(thread_data);
+	clean_forks(program, program->args.philosopher_amount - 1);
+	cleanup_meal_mutexes(program);
+}
+
 int	create_and_start_threads(t_program *program)
 {
 	int				i;
@@ -50,26 +71,12 @@ int	create_and_start_threads(t_program *program)
 		setup_thread_data(program, thread_data, i);
 		if (pthread_create(&program->threads[i], NULL, &philosophers_routine,
 				&thread_data[i]) != 0)
-		{
-			cleanup_threads(program, i);
-			free(program->threads);
-			free(thread_data);
-			clean_forks(program, program->args.philosopher_amount - 1);
-			cleanup_meal_mutexes(program);
-			return (ERROR_THREAD);
-		}
+			return (clean_it(program, thread_data, i), ERROR_THREAD);
 		i++;
 	}
 	if (pthread_create(&program->monitor_thread, NULL, &death_monitor,
-					program) != 0)
-	{
-		cleanup_threads(program, i);
-		free(program->threads);
-		free(thread_data);
-		clean_forks(program, program->args.philosopher_amount - 1);
-		cleanup_meal_mutexes(program);
-		return (ERROR_THREAD);
-	}
+			program) != 0)
+		return (clean_it(program, thread_data, i), ERROR_THREAD);
 	program->thread_data = thread_data;
 	return (SUCCESS);
 }
