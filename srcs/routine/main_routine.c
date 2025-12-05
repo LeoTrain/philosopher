@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_routine.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 13:53:16 by leberton          #+#    #+#             */
+/*   Updated: 2025/12/05 13:53:26 by leberton         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philo.h"
 
 static int	is_simulation_complete(t_thread_data *thread_data)
@@ -44,7 +56,8 @@ void	*philosophers_routine(void *arg)
 	while (1)
 	{
 		usleep(1);
-		if (someone_died(thread_data) == 1 || is_simulation_complete(thread_data))
+		if (someone_died(thread_data) == 1
+			|| is_simulation_complete(thread_data))
 			return (NULL);
 		if (process_eating_cycle(thread_data))
 			return (NULL);
