@@ -6,7 +6,7 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:52:54 by leberton          #+#    #+#             */
-/*   Updated: 2025/12/05 13:52:55 by leberton         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:03:29 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	philo_think(t_thread_data *thread_data)
 	if (thread_data->philo->shared_data->philosopher_amount % 2 == 1)
 	{
 		think_time = thread_data->philo->shared_data->time_to_eat * 2
+			- thread_data->philo->shared_data->time_to_sleep;
+		if (think_time < 0)
+			think_time = 0;
+		if (think_time > 0)
+			ft_usleep(think_time / 2, thread_data);
+	}
+	else
+	{
+		think_time = thread_data->philo->shared_data->time_to_eat * 3
 			- thread_data->philo->shared_data->time_to_sleep;
 		if (think_time < 0)
 			think_time = 0;
