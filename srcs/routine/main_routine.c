@@ -41,6 +41,7 @@ void	*philosophers_routine(void *arg)
 	usleep(50);
 	while (1)
 	{
+		usleep(1);
 		if (someone_died(thread_data) == 1 || is_simulation_complete(thread_data))
 			return (NULL);
 		if (process_eating_cycle(thread_data))
