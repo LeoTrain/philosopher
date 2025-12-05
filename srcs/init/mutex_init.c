@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mutex_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 13:53:02 by leberton          #+#    #+#             */
+/*   Updated: 2025/12/05 13:53:26 by leberton         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philo.h"
 
 static int	init_fork_mutexes(t_program *program)
@@ -23,7 +35,7 @@ static int	init_meal_time_mutexes(t_program *program)
 	int	i;
 
 	program->meal_time_mutexes = malloc(sizeof(pthread_mutex_t)
-						* program->args.philosopher_amount);
+			*program->args.philosopher_amount);
 	if (program->meal_time_mutexes == NULL)
 		return (ERROR_MALLOC);
 	i = 0;

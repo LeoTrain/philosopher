@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 13:53:49 by leberton          #+#    #+#             */
+/*   Updated: 2025/12/05 13:54:03 by leberton         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -63,7 +75,6 @@ typedef struct s_thread_data
 	t_program	*program;
 }				t_thread_data;
 
-
 int		ft_atoi(char *str);
 long	ft_atol(char *str);
 int		is_number(char *str);
@@ -85,9 +96,9 @@ int		create_philosophers(t_program *program);
 int		create_and_start_threads(t_program *program);
 void	join_threads(t_program *program);
 void	philo_think(t_thread_data *thread_data);
-int	philo_sleep(t_thread_data *thread_data);
-int	philo_eat(t_thread_data *thread_data);
-int	ft_usleep(long duration_ms, t_thread_data *thread_data);
+int		philo_sleep(t_thread_data *thread_data);
+int		philo_eat(t_thread_data *thread_data);
+int		ft_usleep(long duration_ms, t_thread_data *thread_data);
 void	*philosophers_routine(void *arg);
 void	*handle_single_philosopher(t_thread_data *thread_data);
 void	lock_mutexes(t_philo *philo);
