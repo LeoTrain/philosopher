@@ -13,6 +13,8 @@ int	initialize_program_args(t_program_args *args)
 
 void	clean_forks(t_program *program, int i)
 {
+	if (program->forks_mutex == NULL)
+		return ;
 	while (i >= 0)
 	{
 		pthread_mutex_destroy(&program->forks_mutex[i]);
@@ -26,6 +28,8 @@ void	cleanup_meal_mutexes(t_program *program)
 {
 	int	i;
 
+	if (program->meal_time_mutexes == NULL)
+		return ;
 	i = program->args.philosopher_amount - 1;
 	while (i >= 0)
 	{

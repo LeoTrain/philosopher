@@ -23,16 +23,32 @@ int	main(int argc, char **argv)
 {
 	t_program	program;
 
+	program.forks_mutex = NULL;
+	program.meal_time_mutexes = NULL;
+	program.philosophers = NULL;
+	program.threads = NULL;
+	program.thread_data = NULL;
 	if (parse_and_init(argc, argv, &program) != SUCCESS)
 		return (EXIT_FAILURE);
 	if (create_philosophers(&program) != SUCCESS)
 	{
 		printf("Error: creating philosophers\n");
+		cleanup_meal_mutexes(&program);
+		pthread_mutex_destroy(&program.completion_counter_mutex);
+		pthread_mutex_destroy(&program.logging_mutex);
+		pthread_mutex_destroy(&program.someone_died_mutex);
+		clean_forks(&program, program.args.philosopher_amount - 1);
 		return (EXIT_FAILURE);
 	}
 	if (create_and_start_threads(&program) != SUCCESS)
 	{
 		printf("Error: creating and starting threads\n");
+		free(program.philosophers);
+		cleanup_meal_mutexes(&program);
+		pthread_mutex_destroy(&program.completion_counter_mutex);
+		pthread_mutex_destroy(&program.logging_mutex);
+		pthread_mutex_destroy(&program.someone_died_mutex);
+		clean_forks(&program, program.args.philosopher_amount - 1);
 		return (EXIT_FAILURE);
 	}
 	join_threads(&program);
