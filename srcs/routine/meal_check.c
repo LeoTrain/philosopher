@@ -7,7 +7,7 @@ int	check_meal_completion(t_thread_data *thread_data)
 
 	if (thread_data->program->completion_counter_full)
 		return (1);
-	if (thread_data->philo->shared_data->max_meals <= 0)
+	if (thread_data->philo->shared_data->max_meals == -1)
 		return (0);
 	pthread_mutex_lock(thread_data->philo->meal_time_mutex);
 	meals_eaten = thread_data->philo->meal_amount_eaten;
