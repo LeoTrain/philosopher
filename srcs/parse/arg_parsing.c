@@ -21,7 +21,7 @@ static int	parse_optional_arg(char **argv, t_program *program, int argc)
 		program->args.max_meals = ft_atoi(argv[5]);
 	}
 	else
-		program->args.max_meals = 0;
+		program->args.max_meals = -1;
 	return (SUCCESS);
 }
 

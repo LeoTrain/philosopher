@@ -24,7 +24,7 @@ int	check_args(t_program_args args)
 		return (FAILURE);
 	if (validate_timing_args(args) != SUCCESS)
 		return (FAILURE);
-	if (args.max_meals < 0)
+	if (args.max_meals == 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
