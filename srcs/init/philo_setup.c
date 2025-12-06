@@ -14,16 +14,12 @@
 
 static void	setup_philosopher_data(t_program *program, int i)
 {
-	int	left_fork_id;
-
 	program->philosophers[i].id = i + 1;
 	program->philosophers[i].meal_time_last = program->args.start_time;
 	program->philosophers[i].meal_amount_eaten = 0;
-	left_fork_id = (i + program->args.philosopher_amount - 1)
-		% program->args.philosopher_amount;
-	program->philosophers[i].fork_left_mutex
-		= &program->forks_mutex[left_fork_id];
-	program->philosophers[i].fork_right_mutex = &program->forks_mutex[i];
+	program->philosophers[i].fork_left_mutex = &program->forks_mutex[i];
+	program->philosophers[i].fork_right_mutex
+		= &program->forks_mutex[(i + 1) % program->args.philosopher_amount];
 	program->philosophers[i].shared_data = &program->args;
 }
 

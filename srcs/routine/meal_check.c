@@ -17,8 +17,13 @@ int	check_meal_completion(t_thread_data *thread_data)
 	int	meals_eaten;
 	int	counter;
 
+	pthread_mutex_lock(thread_data->philo->completion_counter_mutex);
 	if (thread_data->program->completion_counter_full)
+	{
+		pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
 		return (1);
+	}
+	pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
 	if (thread_data->philo->shared_data->max_meals == -1)
 		return (0);
 	pthread_mutex_lock(thread_data->philo->meal_time_mutex);

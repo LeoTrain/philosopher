@@ -15,15 +15,15 @@
 static void	determine_fork_order(t_philo *philo, pthread_mutex_t **first_fork,
 		pthread_mutex_t **second_fork)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 1)
 	{
 		*first_fork = philo->fork_left_mutex;
 		*second_fork = philo->fork_right_mutex;
 	}
 	else
 	{
-		*second_fork = philo->fork_left_mutex;
 		*first_fork = philo->fork_right_mutex;
+		*second_fork = philo->fork_left_mutex;
 	}
 }
 
@@ -32,8 +32,8 @@ void	lock_mutexes(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
-	if (philo->id % 2 == 0)
-		usleep(500);
+	// if (philo->id % 2 == 0)
+	// 	usleep(100);
 	determine_fork_order(philo, &first_fork, &second_fork);
 	pthread_mutex_lock(first_fork);
 	log_fork(philo);
