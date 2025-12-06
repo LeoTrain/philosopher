@@ -77,7 +77,7 @@ void	*death_monitor(void *arg)
 				return (NULL);
 			i++;
 		}
-		usleep(100);
+		usleep(50);
 	}
 	return (NULL);
 }
