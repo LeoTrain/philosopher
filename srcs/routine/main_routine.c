@@ -52,6 +52,8 @@ void	*philosophers_routine(void *arg)
 		return (handle_single_philosopher(thread_data));
 	while (get_current_time() < thread_data->program->args.start_time)
 		usleep(50);
+	if (thread_data->philo->id % 2 == 0)
+		ft_usleep(thread_data->philo->shared_data->time_to_eat / 2, thread_data);
 	while (1)
 	{
 		if (someone_died(thread_data) == 1
@@ -59,7 +61,8 @@ void	*philosophers_routine(void *arg)
 			return (NULL);
 		if (process_eating_cycle(thread_data))
 			return (NULL);
-		philo_think(thread_data);
+		if (philo_think(thread_data))
+			return (NULL);
 		if (philo_sleep(thread_data))
 			return (NULL);
 	}
