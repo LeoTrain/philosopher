@@ -42,13 +42,18 @@ static int	is_simulation_over(t_thread_data *thread_data)
 int	ft_usleep(long duration_ms, t_thread_data *thread_data)
 {
 	long	start;
+	long	remaining;
 
 	start = get_current_time();
 	while (get_current_time() - start < duration_ms)
 	{
 		if (is_simulation_over(thread_data))
 			return (1);
-		usleep(100);
+		remaining = duration_ms - (get_current_time() - start);
+		if (remaining > 1)
+			usleep(500);
+		else
+			usleep(50);
 	}
 	return (0);
 }
