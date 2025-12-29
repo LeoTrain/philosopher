@@ -32,8 +32,8 @@ void	lock_mutexes(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
-	// if (philo->id % 2 == 0)
-	// 	usleep(100);
+	if (philo->id % 2 == 0)
+		usleep(150);
 	determine_fork_order(philo, &first_fork, &second_fork);
 	pthread_mutex_lock(first_fork);
 	log_fork(philo, 1);

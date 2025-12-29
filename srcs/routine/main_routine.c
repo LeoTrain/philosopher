@@ -56,9 +56,9 @@ void	*philosophers_routine(void *arg)
 		ft_usleep(thread_data->philo->shared_data->time_to_eat / 2, thread_data);
 	while (1)
 	{
-		if (someone_died(thread_data) == 1
-			|| is_simulation_complete(thread_data))
-			return (NULL);
+		// if (someone_died(thread_data) == 1
+		// 	|| is_simulation_complete(thread_data))
+		// 	return (NULL);
 		if (process_eating_cycle(thread_data))
 			return (NULL);
 		if (philo_think(thread_data))
