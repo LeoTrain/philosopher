@@ -77,34 +77,45 @@ typedef struct s_thread_data
 
 int		ft_atoi(char *str);
 long	ft_atol(char *str);
-int		is_number(char *str);
+
 long	get_current_time(void);
 long	get_elapsed_time(long start_time);
+int		ft_usleep(long duration_ms, t_thread_data *thread_data);
+
+int		is_number(char *str);
 int		someone_died(t_thread_data *thread_data);
+int		check_meal_completion(t_thread_data *thread_data);
+
 void	log_fork(t_philo *philo, int left);
 void	log_meal(t_philo *philo);
 void	log_sleep(t_philo *philo);
 void	log_think(t_philo *philo);
 void	log_dead(t_philo *philo);
-void	clean_forks(t_program *program, int i);
-int		initialize_program_args(t_program_args *args);
-int		parse_arguments(int argc, char **argv, t_program *program);
-int		check_args(t_program_args args);
-int		init_mutexes(t_program *program);
-void	add_start_time_to_args(t_program *program);
-int		create_philosophers(t_program *program);
-int		create_and_start_threads(t_program *program);
-void	join_threads(t_program *program);
+
 int		philo_think(t_thread_data *thread_data);
 int		philo_sleep(t_thread_data *thread_data);
 int		philo_eat(t_thread_data *thread_data);
-int		ft_usleep(long duration_ms, t_thread_data *thread_data);
-void	*philosophers_routine(void *arg);
-void	*handle_single_philosopher(t_thread_data *thread_data);
-void	lock_mutexes(t_philo *philo);
-void	unlock_mutexes(t_philo *philo);
-int		check_meal_completion(t_thread_data *thread_data);
-void	*death_monitor(void *arg);
+
+void	clean_forks(t_program *program, int i);
+
+int		check_args(t_program_args args);
+int		parse_arguments(int argc, char **argv, t_program *program);
+int		initialize_program_args(t_program_args *args);
+void	add_start_time_to_args(t_program *program);
+
+int		init_mutexes(t_program *program);
+void	lock_mutexes(t_thread_data *thread_data);
+void	unlock_mutexes(t_thread_data *thread_data);
 void	cleanup_meal_mutexes(t_program *program);
+
+int		create_philosophers(t_program *program);
+void	*handle_single_philosopher(t_thread_data *thread_data);
+void	*philosophers_routine(void *arg);
+
+void	*death_monitor(void *arg);
+
+int		create_and_start_threads(t_program *program);
+void	join_threads(t_program *program);
+
 
 #endif
