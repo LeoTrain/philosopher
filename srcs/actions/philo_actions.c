@@ -31,8 +31,16 @@ int	philo_think(t_thread_data *thread_data)
 	long	think_time;
 
 	log_think(thread_data->philo);
-	think_time = thread_data->philo->shared_data->time_to_eat
-		- thread_data->philo->shared_data->time_to_sleep;
+	if (thread_data->program->args.philosopher_amount % 2 == 0)
+	{
+		think_time = thread_data->philo->shared_data->time_to_eat
+			- thread_data->philo->shared_data->time_to_sleep;
+	}
+	else
+	{
+		think_time = thread_data->philo->shared_data->time_to_eat * 2
+			- thread_data->philo->shared_data->time_to_sleep;
+	}
 	if (think_time > 0)
 		return (ft_usleep(think_time, thread_data));
 	return (0);
