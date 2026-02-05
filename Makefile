@@ -1,6 +1,6 @@
 NAME = 		philo
 CC = 		cc
-CFLAGS = 	-Wall -Wextra -Werror -pthread
+CFLAGS = 	-Wall -Wextra -Werror -pthread -fsanitize=thread -g
 
 S_CORE = 	srcs/core/program_main.c
 S_INIT = 	srcs/init/program_init.c \
@@ -37,7 +37,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo $(BLUE)"Compiling objects into executable"$(RESET)
-	@$(CC) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c
 	@echo $(YELLOW)"Compiling $^ into a object file"$(RESET)
