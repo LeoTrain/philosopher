@@ -12,10 +12,24 @@
 
 #include "../../includes/philo.h"
 
+static int	is_delayed_philo(t_philo *philo)
+{
+	int	id;
+	int	total;
+
+	id = philo->id;
+	total = philo->shared_data->philosopher_amount;
+	if (id % 2 == 0)
+		return (1);
+	if (total % 2 == 1 && id == total)
+		return (1);
+	return (0);
+}
+
 static void	determine_fork_order(t_philo *philo, pthread_mutex_t **first_fork,
 		pthread_mutex_t **second_fork)
 {
-	if (philo->id % 2 == 1)
+	if (!is_delayed_philo(philo))
 	{
 		*first_fork = philo->fork_left_mutex;
 		*second_fork = philo->fork_right_mutex;
@@ -27,16 +41,27 @@ static void	determine_fork_order(t_philo *philo, pthread_mutex_t **first_fork,
 	}
 }
 
-void	lock_mutexes(t_philo *philo)
+void	lock_mutexes(t_thread_data *thread_data)
 {
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
+	t_philo			*philo;
 
-	if (philo->id % 2 == 0)
-		usleep(150);
+	philo = thread_data->philo;
 	determine_fork_order(philo, &first_fork, &second_fork);
 	pthread_mutex_lock(first_fork);
+	if (someone_died(thread_data) == 1)
+	{
+		pthread_mutex_unlock(first_fork);
+		return ;
+	}
 	log_fork(philo, 1);
 	pthread_mutex_lock(second_fork);
+	if (someone_died(thread_data) == 1)
+	{
+		pthread_mutex_unlock(second_fork);
+		pthread_mutex_unlock(first_fork);
+		return ;
+	}
 	log_fork(philo, 0);
 }

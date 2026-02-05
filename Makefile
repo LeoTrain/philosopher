@@ -1,6 +1,6 @@
 NAME = 		philo
 CC = 		cc
-CFLAGS = 	-Wall -Wextra -Werror
+CFLAGS = 	-Wall -Wextra -Werror -pthread
 
 S_CORE = 	srcs/core/program_main.c
 S_INIT = 	srcs/init/program_init.c \
