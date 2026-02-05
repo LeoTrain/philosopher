@@ -49,7 +49,7 @@ static void	main_final(t_program *program)
 	pthread_mutex_destroy(&program->completion_counter_mutex);
 	pthread_mutex_destroy(&program->logging_mutex);
 	pthread_mutex_destroy(&program->someone_died_mutex);
-	free(program->forks_mutex);
+	clean_forks(program, program->args.philosopher_amount - 1);
 	free(program->philosophers);
 }
 
