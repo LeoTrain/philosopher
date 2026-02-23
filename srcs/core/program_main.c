@@ -31,7 +31,7 @@ static int	parse_and_init(int argc, char **argv, t_program *program)
 	return (SUCCESS);
 }
 
-static void	cleanup_ressources(t_program *program)
+static void	cleanup_resources(t_program *program)
 {
 	cleanup_meal_mutexes(program);
 	pthread_mutex_destroy(&program->completion_counter_mutex);
@@ -44,13 +44,13 @@ static void	main_cleanup(t_program *program, int philo_created)
 {
 	if (philo_created)
 		free(program->philosophers);
-	cleanup_ressources(program);
+	cleanup_resources(program);
 }
 
 static void	main_final(t_program *program)
 {
 	join_threads(program);
-	cleanup_ressources(program);
+	cleanup_resources(program);
 	free(program->philosophers);
 }
 
