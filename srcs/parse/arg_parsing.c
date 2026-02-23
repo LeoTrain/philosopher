@@ -49,6 +49,5 @@ int	parse_arguments(int argc, char **argv, t_program *program)
 		return (FAILURE);
 	if (check_args(program->args) != SUCCESS)
 		return (FAILURE);
-	program->someone_died = 0;
 	return (SUCCESS);
 }

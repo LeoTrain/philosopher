@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-static long	handle_sign(char *str, int *i)
+static int	handle_sign(char *str, int *i)
 {
 	int	sign;
 
@@ -51,7 +51,7 @@ long	ft_atol(char *str)
 {
 	int		i;
 	long	result;
-	long	sign;
+	int		sign;
 
 	if (!str)
 		return (0);

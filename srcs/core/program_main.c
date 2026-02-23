@@ -24,7 +24,7 @@ static int	parse_and_init(int argc, char **argv, t_program *program)
 	}
 	if (init_mutexes(program) != SUCCESS)
 	{
-		printf("Error: inititializing mutexes");
+		printf("Error: inititializing mutexes\n");
 		return (EXIT_FAILURE);
 	}
 	add_start_time_to_args(program);

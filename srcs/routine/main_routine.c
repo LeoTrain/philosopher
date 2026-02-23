@@ -12,22 +12,12 @@
 
 #include "../../includes/philo.h"
 
-static int	is_simulation_complete(t_thread_data *thread_data)
-{
-	int	full;
-
-	pthread_mutex_lock(thread_data->philo->completion_counter_mutex);
-	full = thread_data->program->completion_counter_full;
-	pthread_mutex_unlock(thread_data->philo->completion_counter_mutex);
-	return (full);
-}
-
 static int	process_eating_cycle(t_thread_data *thread_data)
 {
 	if (someone_died(thread_data) == 1)
 		return (1);
 	lock_mutexes(thread_data);
-	if (someone_died(thread_data) == 1 || is_simulation_complete(thread_data))
+	if (someone_died(thread_data) == 1 || is_sim_complete(thread_data))
 		return (unlock_mutexes(thread_data), 1);
 	pthread_mutex_lock(thread_data->philo->meal_time_mutex);
 	thread_data->philo->meal_time_last = get_current_time();
@@ -64,7 +54,6 @@ void	*philosophers_routine(void *arg)
 		if (philo_sleep(thread_data))
 			return (NULL);
 	}
-	return (NULL);
 }
 
 void	*handle_single_philosopher(t_thread_data *thread_data)

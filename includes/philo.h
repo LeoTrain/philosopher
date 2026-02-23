@@ -85,6 +85,7 @@ int		ft_usleep(long duration_ms, t_thread_data *thread_data);
 int		is_number(char *str);
 int		someone_died(t_thread_data *thread_data);
 int		is_philo_sim_over(t_philo *philo);
+int		is_sim_complete(t_thread_data *thread_data);
 int		check_meal_completion(t_thread_data *thread_data);
 
 void	log_fork(t_philo *philo);

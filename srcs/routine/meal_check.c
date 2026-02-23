@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-static int	is_sim_complete(t_thread_data *thread_data)
+int	is_sim_complete(t_thread_data *thread_data)
 {
 	int	full;
 

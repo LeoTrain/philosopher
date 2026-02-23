@@ -17,7 +17,7 @@ static int	check_completion(t_philo *philo, t_program *program)
 	if (philo->shared_data->max_meals == -1)
 		return (0);
 	pthread_mutex_lock(philo->meal_time_mutex);
-	if (philo->meal_amount_eaten == philo->shared_data->max_meals)
+	if (philo->meal_amount_eaten >= philo->shared_data->max_meals)
 	{
 		pthread_mutex_unlock(philo->meal_time_mutex);
 		return (1);
