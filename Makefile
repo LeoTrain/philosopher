@@ -23,7 +23,6 @@ S_UTILS =	srcs/utils/time_helpers.c \
 		  	srcs/utils/death_check.c \
 		  	srcs/utils/string_helpers.c \
 		  	srcs/utils/string_convert.c \
-		  	srcs/utils/string_long.c
 
 RED =		"\033[31m"
 BLUE =		"\033[34m"

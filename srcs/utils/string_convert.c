@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-static int	handle_sign(char *str, int *i)
+static long	handle_sign(char *str, int *i)
 {
 	int	sign;
 
@@ -31,6 +31,27 @@ int	ft_atoi(char *str)
 	int	i;
 	int	result;
 	int	sign;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	sign = handle_sign(str, &i);
+	result = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * sign);
+}
+
+long	ft_atol(char *str)
+{
+	int		i;
+	long	result;
+	long	sign;
 
 	if (!str)
 		return (0);
