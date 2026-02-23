@@ -31,10 +31,8 @@ static int	parse_and_init(int argc, char **argv, t_program *program)
 	return (SUCCESS);
 }
 
-static void	main_cleanup(t_program *program, int philo_created)
+static void	cleanup_ressources(t_program *program)
 {
-	if (philo_created)
-		free(program->philosophers);
 	cleanup_meal_mutexes(program);
 	pthread_mutex_destroy(&program->completion_counter_mutex);
 	pthread_mutex_destroy(&program->logging_mutex);
@@ -42,14 +40,17 @@ static void	main_cleanup(t_program *program, int philo_created)
 	clean_forks(program, program->args.philosopher_amount - 1);
 }
 
+static void	main_cleanup(t_program *program, int philo_created)
+{
+	if (philo_created)
+		free(program->philosophers);
+	cleanup_ressources(program);
+}
+
 static void	main_final(t_program *program)
 {
 	join_threads(program);
-	cleanup_meal_mutexes(program);
-	pthread_mutex_destroy(&program->completion_counter_mutex);
-	pthread_mutex_destroy(&program->logging_mutex);
-	pthread_mutex_destroy(&program->someone_died_mutex);
-	clean_forks(program, program->args.philosopher_amount - 1);
+	cleanup_ressources(program);
 	free(program->philosophers);
 }
 
