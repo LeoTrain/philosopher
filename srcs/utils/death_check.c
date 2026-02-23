@@ -21,3 +21,13 @@ int	someone_died(t_thread_data *thread_data)
 	pthread_mutex_unlock(thread_data->philo->someone_died_mutex);
 	return (died);
 }
+
+int	is_philo_sim_over(t_philo *philo)
+{
+	int	died;
+
+	pthread_mutex_lock(philo->someone_died_mutex);
+	died = *philo->someone_died;
+	pthread_mutex_unlock(philo->someone_died_mutex);
+	return (died);
+}
