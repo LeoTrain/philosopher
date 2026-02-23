@@ -55,7 +55,7 @@ void	lock_mutexes(t_thread_data *thread_data)
 		pthread_mutex_unlock(first_fork);
 		return ;
 	}
-	log_fork(philo, 1);
+	log_fork(philo);
 	pthread_mutex_lock(second_fork);
 	if (someone_died(thread_data) == 1)
 	{
@@ -63,5 +63,5 @@ void	lock_mutexes(t_thread_data *thread_data)
 		pthread_mutex_unlock(first_fork);
 		return ;
 	}
-	log_fork(philo, 0);
+	log_fork(philo);
 }

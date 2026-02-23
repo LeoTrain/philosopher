@@ -87,7 +87,7 @@ int		someone_died(t_thread_data *thread_data);
 int		is_philo_sim_over(t_philo *philo);
 int		check_meal_completion(t_thread_data *thread_data);
 
-void	log_fork(t_philo *philo, int left);
+void	log_fork(t_philo *philo);
 void	log_meal(t_philo *philo);
 void	log_sleep(t_philo *philo);
 void	log_think(t_philo *philo);

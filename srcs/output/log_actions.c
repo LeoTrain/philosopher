@@ -12,18 +12,12 @@
 
 #include "../../includes/philo.h"
 
-void	log_fork(t_philo *philo, int left)
+void	log_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->logging_mutex);
 	if (!is_philo_sim_over(philo))
-	{
-		if (left == 1)
-			printf("%ld %d has taken a fork\n",
-				get_elapsed_time(philo->shared_data->start_time), philo->id);
-		else
-			printf("%ld %d has taken a fork\n",
-				get_elapsed_time(philo->shared_data->start_time), philo->id);
-	}
+		printf("%ld %d has taken a fork\n",
+			get_elapsed_time(philo->shared_data->start_time), philo->id);
 	pthread_mutex_unlock(philo->logging_mutex);
 }
 
