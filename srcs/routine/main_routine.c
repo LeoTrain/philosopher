@@ -43,20 +43,6 @@ static int	process_eating_cycle(t_thread_data *thread_data)
 	return (0);
 }
 
-static int	should_delay_start(t_thread_data *thread_data)
-{
-	int	id;
-	int	total;
-
-	id = thread_data->philo->id;
-	total = thread_data->philo->shared_data->philosopher_amount;
-	if (id % 2 == 0)
-		return (1);
-	if (total % 2 == 1 && id == total)
-		return (1);
-	return (0);
-}
-
 void	*philosophers_routine(void *arg)
 {
 	t_thread_data	*thread_data;
@@ -66,7 +52,7 @@ void	*philosophers_routine(void *arg)
 		return (handle_single_philosopher(thread_data));
 	while (get_current_time() < thread_data->program->args.start_time)
 		usleep(50);
-	if (should_delay_start(thread_data))
+	if (is_delayed_philo(thread_data->philo))
 		ft_usleep(thread_data->philo->shared_data->time_to_eat / 2, thread_data);
 	while (1)
 	{

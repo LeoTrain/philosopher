@@ -105,6 +105,7 @@ int		initialize_program_args(t_program_args *args);
 void	add_start_time_to_args(t_program *program);
 
 int		init_mutexes(t_program *program);
+int		is_delayed_philo(t_philo *philo);
 void	lock_mutexes(t_thread_data *thread_data);
 void	unlock_mutexes(t_thread_data *thread_data);
 void	cleanup_meal_mutexes(t_program *program);

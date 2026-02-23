@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-static int	is_delayed_philo(t_philo *philo)
+int	is_delayed_philo(t_philo *philo)
 {
 	int	id;
 	int	total;
