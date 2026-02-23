@@ -17,8 +17,7 @@ S_THREAD = 	srcs/thread/thread_create.c \
 		   	srcs/thread/thread_cleanup.c \
 		   	srcs/thread/death_monitor.c
 S_ACTIONS = srcs/actions/philo_actions.c
-S_OUTPUT = 	srcs/output/log_actions.c \
-		   	srcs/output/log_status.c
+S_OUTPUT = 	srcs/output/log_actions.c
 S_UTILS =	srcs/utils/time_helpers.c \
 		  	srcs/utils/death_check.c \
 		  	srcs/utils/string_helpers.c \
