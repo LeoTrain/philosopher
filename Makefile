@@ -9,7 +9,6 @@ S_INIT = 	srcs/init/program_init.c \
 S_PARSE = 	srcs/parse/arg_parsing.c \
 		  	srcs/parse/arg_validation.c
 S_ROUTINE = srcs/routine/main_routine.c \
-			srcs/routine/single_philo.c \
 			srcs/routine/fork_management.c \
 			srcs/routine/meal_check.c
 S_THREAD = 	srcs/thread/thread_create.c \
