@@ -53,7 +53,8 @@ void	*philosophers_routine(void *arg)
 	while (get_current_time() < thread_data->program->args.start_time)
 		usleep(50);
 	if (is_delayed_philo(thread_data->philo))
-		ft_usleep(thread_data->philo->shared_data->time_to_eat / 2, thread_data);
+		ft_usleep(thread_data->philo->shared_data->time_to_eat / 2,
+			thread_data);
 	while (1)
 	{
 		if (process_eating_cycle(thread_data))

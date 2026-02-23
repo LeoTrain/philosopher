@@ -119,5 +119,4 @@ void	*death_monitor(void *arg);
 int		create_and_start_threads(t_program *program);
 void	join_threads(t_program *program);
 
-
 #endif
