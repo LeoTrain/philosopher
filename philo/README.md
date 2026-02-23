@@ -1,4 +1,4 @@
-*This project has been created as part of 42 curriculum by leberton"
+*This project has been created as part of the 42 curriculum by leberton*
 
 # Philosophers
 
@@ -10,7 +10,7 @@ One or more philos sit around a table. Each of them alternates between eating, t
 The goal is to keep every philo alive by preventing deadlocks and starvation
 
 
-## Instruction
+## Instructions
 ### Compilation
 ```bash
 make
