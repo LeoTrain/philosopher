@@ -65,3 +65,9 @@ void	lock_mutexes(t_thread_data *thread_data)
 	}
 	log_fork(philo);
 }
+
+void	unlock_mutexes(t_thread_data *thread_data)
+{
+	pthread_mutex_unlock(thread_data->philo->fork_left_mutex);
+	pthread_mutex_unlock(thread_data->philo->fork_right_mutex);
+}

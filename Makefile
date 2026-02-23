@@ -11,7 +11,6 @@ S_PARSE = 	srcs/parse/arg_parsing.c \
 S_ROUTINE = srcs/routine/main_routine.c \
 			srcs/routine/single_philo.c \
 			srcs/routine/fork_management.c \
-			srcs/routine/fork_unlock.c \
 			srcs/routine/meal_check.c
 S_THREAD = 	srcs/thread/thread_create.c \
 		   	srcs/thread/thread_cleanup.c \
